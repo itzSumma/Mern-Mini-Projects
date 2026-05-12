@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <div
       className="
-      bg-[url('/assets/banner.png')] 
+      bg-[url('/assets/Banner1.jpg')] 
       bg-cover 
       bg-center 
       text-white  
