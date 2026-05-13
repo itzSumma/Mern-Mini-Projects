@@ -34,13 +34,15 @@ const Navbar = () => {
 
         {/* LOGO */}
         <Link href="/">
-          <Image
+          {/* <Image
             src="/assets/Wanderlast.png"
             alt="Wanderlust"
             width={120}
             height={120}
             className="object-contain"
-          />
+          /> */}
+
+          <h1 className="text-xl font-bold">Desti<span className="text-black/60 font-extrabold">Nova</span></h1>
         </Link>
 
         {/* RIGHT */}
