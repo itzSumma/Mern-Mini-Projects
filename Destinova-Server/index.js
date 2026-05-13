@@ -76,19 +76,11 @@ app.patch("/destination/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const filter = { _id: new ObjectId(id) };
-    const updatedData = req.body;
+    const {_id , ...updatedData} = req.body;
 
     
     const updateDoc = {
-      $set: {
-        destinationName: updatedData.destinationName,
-        country: updatedData.country,
-        category: updatedData.category,
-        price: updatedData.price,
-        duration: updatedData.duration,
-        imageUrl: updatedData.imageUrl,
-        description: updatedData.description,
-      },
+      $set:updatedData,
     };
 
     const result = await destinationCollection.updateOne(filter, updateDoc);
