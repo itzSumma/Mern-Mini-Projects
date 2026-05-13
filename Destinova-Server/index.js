@@ -71,6 +71,57 @@ app.post("/destination", async (req, res) => {
   }
   });
 
+// Update a single destination
+app.patch("/destination/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const updatedData = req.body;
+
+    
+    const updateDoc = {
+      $set: {
+        destinationName: updatedData.destinationName,
+        country: updatedData.country,
+        category: updatedData.category,
+        price: updatedData.price,
+        duration: updatedData.duration,
+        imageUrl: updatedData.imageUrl,
+        description: updatedData.description,
+      },
+    };
+
+    const result = await destinationCollection.updateOne(filter, updateDoc);
+
+    if (result.matchedCount === 0) {
+      return res.status(404).send({ message: "Destination not found" });
+    }
+
+    res.send(result);
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).send({ message: "Server error during update" });
+  }
+});
+
+// Delete a single destination
+
+app.delete('/destination/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) }; // 
+    const result = await destinationCollection.deleteOne(query);
+
+    if (result.deletedCount === 1) {
+      res.status(200).send({ message: "Deleted successfully" });
+    } else {
+      res.status(404).send({ message: "Destination not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
